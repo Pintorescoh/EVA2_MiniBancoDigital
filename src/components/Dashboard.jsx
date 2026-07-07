@@ -1,4 +1,5 @@
 // src/components/Dashboard.jsx
+import History from './History';
 import TransferForm from './TransferForm';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase/config';
@@ -80,6 +81,9 @@ export default function Dashboard({ usuario }) {
           
           {/* Agregamos el formulario y le pasamos los datos necesarios */}
           <TransferForm usuarioActual={usuario} saldoActual={datosCuenta.saldo} />
+          
+          {/* Agregamos el historial de movimientos */}
+          <History usuarioActual={usuario} />
         </>
       )}
     </div>
