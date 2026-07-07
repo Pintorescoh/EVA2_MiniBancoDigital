@@ -1,4 +1,5 @@
 // src/components/Dashboard.jsx
+import TransferForm from './TransferForm';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase/config';
 import { signOut } from 'firebase/auth';
@@ -64,17 +65,22 @@ export default function Dashboard({ usuario }) {
         </button>
       </div>
 
-      {error ? (
+  {error ? (
         <p style={{ color: '#f85149' }}>{error}</p>
       ) : (
-        <div style={{ backgroundColor: '#1c2333', padding: '20px', borderRadius: '8px', textAlign: 'center' }}>
-          <p style={{ color: '#8b949e', margin: '0 0 5px 0', textTransform: 'uppercase', fontSize: '0.8rem' }}>Saldo Disponible</p>
-          {/* Formateamos el número para que se vea como dinero en pesos chilenos */}
-          <h1 style={{ color: '#3fb950', margin: 0, fontSize: '2.5rem' }}>
-            ${datosCuenta.saldo.toLocaleString('es-CL')}
-          </h1>
-          <p style={{ marginTop: '15px', fontSize: '0.9rem' }}>Usuario: {datosCuenta.email}</p>
-        </div>
+        /* Agregamos el Fragmento de React aquí para agrupar los dos elementos hermanos */
+        <>
+          <div style={{ backgroundColor: '#1c2333', padding: '20px', borderRadius: '8px', textAlign: 'center' }}>
+            <p style={{ color: '#8b949e', margin: '0 0 5px 0', textTransform: 'uppercase', fontSize: '0.8rem' }}>Saldo Disponible</p>
+            <h1 style={{ color: '#3fb950', margin: 0, fontSize: '2.5rem' }}>
+              ${datosCuenta.saldo.toLocaleString('es-CL')}
+            </h1>
+            <p style={{ marginTop: '15px', fontSize: '0.9rem' }}>Usuario: {datosCuenta.email}</p>
+          </div>
+          
+          {/* Agregamos el formulario y le pasamos los datos necesarios */}
+          <TransferForm usuarioActual={usuario} saldoActual={datosCuenta.saldo} />
+        </>
       )}
     </div>
   );
