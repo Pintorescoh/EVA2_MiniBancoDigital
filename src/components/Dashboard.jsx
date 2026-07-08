@@ -1,4 +1,5 @@
 // src/components/Dashboard.jsx
+import CajeroVirtual from './CajeroVirtual';
 import History from './History';
 import TransferForm from './TransferForm';
 import { useState, useEffect } from 'react';
@@ -81,6 +82,9 @@ export default function Dashboard({ usuario }) {
           
           {/* Agregamos el formulario y le pasamos los datos necesarios */}
           <TransferForm usuarioActual={usuario} saldoActual={datosCuenta.saldo} />
+          
+          {/* NUEVO: Simulador de Cajero para depósitos y retiros */}
+          <CajeroVirtual usuarioActual={usuario} saldoActual={datosCuenta.saldo} />
           
           {/* Agregamos el historial de movimientos */}
           <History usuarioActual={usuario} />
