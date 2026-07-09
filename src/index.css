@@ -1,30 +1,40 @@
-/* src/index.css */
-
-/* Colores por defecto (Modo Oscuro) */
 :root {
-  --bg-principal: #0d1117;
-  --bg-tarjeta: #161b22;
-  --bg-interior: #1c2333;
-  --texto-principal: #c9d1d9;
-  --texto-secundario: #8b949e;
-  --borde-color: #30363d;
+  /* Modo Oscuro: Tonos "Slate" profundos y elegantes */
+  --bg-principal: #0f172a;
+  --bg-tarjeta: #1e293b;
+  --bg-interior: #334155;
+  --texto-principal: #f8fafc;
+  --texto-secundario: #94a3b8;
+  --borde-color: #334155;
+  --acento-azul: #3b82f6;
+  --sombra-panel: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
-/* Colores alternativos (Modo Claro) */
 [data-theme="light"] {
-  --bg-principal: #f6f8fa;
+  /* Modo Claro: Blancos limpios y grises muy suaves */
+  --bg-principal: #f1f5f9;
   --bg-tarjeta: #ffffff;
-  --bg-interior: #f0f3f6;
-  --texto-principal: #24292f;
-  --texto-secundario: #57606a;
-  --borde-color: #d0d7de;
+  --bg-interior: #f8fafc;
+  --texto-principal: #0f172a;
+  --texto-secundario: #64748b;
+  --borde-color: #e2e8f0;
+  --acento-azul: #2563eb;
+  --sombra-panel: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
-/* Aplicación global del fondo y fuente al body */
 body {
   background-color: var(--bg-principal);
   color: var(--texto-principal);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilo global para ocultar las barras de desplazamiento (opcional, da aspecto móvil) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--borde-color);
+  border-radius: 4px;
 }

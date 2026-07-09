@@ -3,11 +3,8 @@ import { db } from '../firebase/config';
 import { collection, query, where, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
 import { AuthContext } from '../context/AuthContext';
 
-// Ya no recibe usuarioActual
 export default function TransferForm({ saldoActual }) {
-  // Extraemos el usuario global y lo renombramos a usuarioActual
   const { usuario: usuarioActual } = useContext(AuthContext);
-  
   const [emailDestino, setEmailDestino] = useState('');
   const [monto, setMonto] = useState('');
   const [estado, setEstado] = useState({ tipo: '', texto: '' }); 
@@ -18,9 +15,9 @@ export default function TransferForm({ saldoActual }) {
     setEstado({ tipo: '', texto: '' });
     const montoNum = Number(monto);
 
-    if (montoNum <= 0) return setEstado({ tipo: 'error', texto: 'El monto a transferir debe ser mayor a $0.' });
-    if (montoNum > saldoActual) return setEstado({ tipo: 'error', texto: 'Saldo insuficiente para esta operación.' });
-    if (emailDestino === usuarioActual.email) return setEstado({ tipo: 'error', texto: 'No puedes transferir dinero a tu propia cuenta.' });
+    if (montoNum <= 0) return setEstado({ tipo: 'error', texto: 'El monto debe ser mayor a $0.' });
+    if (montoNum > saldoActual) return setEstado({ tipo: 'error', texto: 'Saldo insuficiente.' });
+    if (emailDestino === usuarioActual.email) return setEstado({ tipo: 'error', texto: 'No puedes transferir a tu cuenta.' });
 
     setProcesando(true); 
 
@@ -31,7 +28,7 @@ export default function TransferForm({ saldoActual }) {
 
       if (resultados.empty) {
         setProcesando(false);
-        return setEstado({ tipo: 'error', texto: 'El correo ingresado no pertenece a ningún usuario de XBank.' });
+        return setEstado({ tipo: 'error', texto: 'Usuario no encontrado en XBank.' });
       }
 
       const destinatarioDoc = resultados.docs[0];
@@ -52,37 +49,33 @@ export default function TransferForm({ saldoActual }) {
         tipo: 'transferencia'
       });
 
-      setEstado({ tipo: 'exito', texto: `¡Transferencia de $${montoNum.toLocaleString('es-CL')} enviada con éxito!` });
+      setEstado({ tipo: 'exito', texto: `¡$${montoNum.toLocaleString('es-CL')} transferidos!` });
       setEmailDestino('');
       setMonto('');
-
     } catch (error) {
-      console.error("Error procesando transferencia:", error);
-      setEstado({ tipo: 'error', texto: 'Ocurrió un error en el servidor.' });
+      setEstado({ tipo: 'error', texto: 'Error en el servidor.' });
     } finally {
       setProcesando(false);
     }
   };
 
   return (
-    <div style={{ marginTop: '20px', borderTop: '1px solid var(--borde-color)', paddingTop: '20px' }}>
-      <h3>Realizar Transferencia</h3>
+    <div style={{ backgroundColor: 'var(--bg-principal)', padding: '20px', borderRadius: '12px', marginBottom: '20px', border: '1px solid var(--borde-color)' }}>
+      <h3 style={{ margin: '0 0 15px 0', fontSize: '1.1rem' }}>Enviar Dinero</h3>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '10px' }}>
-          <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '5px', color: 'var(--texto-secundario)' }}>Correo del destinatario:</label>
-          <input type="email" value={emailDestino} onChange={(e) => setEmailDestino(e.target.value)} required placeholder="ejemplo@correo.com" style={{ width: '100%', padding: '8px', backgroundColor: 'var(--bg-principal)', color: 'var(--texto-principal)', border: '1px solid var(--borde-color)', borderRadius: '4px' }} />
+        <div style={{ marginBottom: '12px' }}>
+          <input type="email" value={emailDestino} onChange={(e) => setEmailDestino(e.target.value)} required placeholder="Correo del destinatario" style={{ width: '100%', padding: '12px', backgroundColor: 'var(--bg-interior)', color: 'var(--texto-principal)', border: 'none', borderRadius: '8px', boxSizing: 'border-box', outline: 'none' }} />
         </div>
         <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', fontSize: '0.9rem', marginBottom: '5px', color: 'var(--texto-secundario)' }}>Monto a transferir:</label>
-          <input type="number" value={monto} onChange={(e) => setMonto(e.target.value)} required placeholder="Ej: 15000" style={{ width: '100%', padding: '8px', backgroundColor: 'var(--bg-principal)', color: 'var(--texto-principal)', border: '1px solid var(--borde-color)', borderRadius: '4px' }} />
+          <input type="number" value={monto} onChange={(e) => setMonto(e.target.value)} required placeholder="Monto a transferir (Ej: 15000)" style={{ width: '100%', padding: '12px', backgroundColor: 'var(--bg-interior)', color: 'var(--texto-principal)', border: 'none', borderRadius: '8px', boxSizing: 'border-box', outline: 'none' }} />
         </div>
         {estado.texto && (
-          <div style={{ padding: '10px', marginBottom: '15px', borderRadius: '4px', backgroundColor: estado.tipo === 'error' ? 'rgba(248,81,73,0.1)' : 'rgba(63,185,80,0.1)', color: estado.tipo === 'error' ? '#f85149' : '#3fb950', border: `1px solid ${estado.tipo === 'error' ? '#f85149' : '#3fb950'}` }}>
+          <div style={{ padding: '12px', marginBottom: '15px', borderRadius: '8px', backgroundColor: estado.tipo === 'error' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(34, 197, 94, 0.1)', color: estado.tipo === 'error' ? '#ef4444' : '#22c55e', fontSize: '0.9rem', textAlign: 'center' }}>
             {estado.texto}
           </div>
         )}
-        <button type="submit" disabled={procesando} style={{ width: '100%', padding: '10px', backgroundColor: procesando ? 'var(--borde-color)' : '#58a6ff', color: procesando ? 'var(--texto-secundario)' : '#0d1117', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: procesando ? 'not-allowed' : 'pointer' }}>
-          {procesando ? 'Procesando transferencia...' : 'Transferir Fondos'}
+        <button type="submit" disabled={procesando} style={{ width: '100%', padding: '12px', backgroundColor: procesando ? 'var(--borde-color)' : 'var(--acento-azul)', color: procesando ? 'var(--texto-secundario)' : '#ffffff', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: procesando ? 'not-allowed' : 'pointer', transition: 'background-color 0.2s' }}>
+          {procesando ? 'Procesando...' : 'Confirmar Transferencia'}
         </button>
       </form>
     </div>
