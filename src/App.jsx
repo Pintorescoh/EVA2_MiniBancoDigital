@@ -1,43 +1,54 @@
-import { useState, useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase/config';
+import { useState, useEffect, useContext } from 'react';
+// Importamos la burbuja global
+import { AuthContext } from './context/AuthContext';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 
 function App() {
-  // Estado para guardar la información del usuario conectado
-  const [usuario, setUsuario] = useState(null);
-  
-  // Estado para mostrar un indicador mientras Firebase verifica si hay una sesión activa
-  const [cargando, setCargando] = useState(true);
+  // Extraemos los datos centralizados
+  const { usuario, cargando } = useContext(AuthContext);
+
+  const [tema, setTema] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
 
   useEffect(() => {
-    // onAuthStateChanged es un "observador" en tiempo real.
-    // Firebase nos avisará automáticamente aquí cada vez que alguien inicie o cierre sesión.
-    const unsubscribe = onAuthStateChanged(auth, (usuarioActual) => {
-      setUsuario(usuarioActual);
-      setCargando(false);
-    });
+    document.documentElement.setAttribute('data-theme', tema);
+    localStorage.setItem('theme', tema);
+  }, [tema]);
 
-    // La rúbrica exige limpiar las suscripciones cuando el componente se destruye para evitar fugas de memoria
-    return () => unsubscribe();
-  }, []);
+  const toggleTema = () => {
+    setTema((temaAnterior) => (temaAnterior === 'dark' ? 'light' : 'dark'));
+  };
 
-  // Mientras esperamos la respuesta de Firebase, mostramos esto:
   if (cargando) {
     return <div style={{ textAlign: 'center', marginTop: '50px' }}>Cargando sistema central...</div>;
   }
 
   return (
-    <div>
-      <h1 style={{ textAlign: 'center', color: '#58a6ff' }}>Mini Banco Digital - XBank</h1>
+    <div style={{ minHeight: '100vh', paddingBottom: '40px' }}>
+      <header style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px 20px' }}>
+        <button 
+          onClick={toggleTema}
+          style={{
+            backgroundColor: 'var(--bg-tarjeta)',
+            color: 'var(--texto-principal)',
+            border: '1px solid var(--borde-color)',
+            padding: '8px 16px',
+            borderRadius: '20px',
+            cursor: 'pointer',
+            fontWeight: 'bold',
+            fontSize: '0.85rem'
+          }}
+        >
+          {tema === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Oscuro'}
+        </button>
+      </header>
+
+      <h1 style={{ textAlign: 'center', color: '#58a6ff', marginTop: '10px' }}>Mini Banco Digital - XBank</h1>
       
-      {/* Renderizado condicional */}
-      {usuario ? (
-        <Dashboard usuario={usuario} />
-      ) : (
-        <Login />
-      )}
+      {/* Ya no le pasamos el usuario al Dashboard */}
+      {usuario ? <Dashboard /> : <Login />}
     </div>
   );
 }
