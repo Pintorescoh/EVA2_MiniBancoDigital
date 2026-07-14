@@ -1,7 +1,8 @@
+// src/components/TransferForm.jsx
 import { useState, useContext } from 'react';
-import { db } from '../firebase/config';
-import { collection, query, where, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
 import { AuthContext } from '../context/AuthContext';
+import { validarTransferencia } from '../utils/validaciones';
+import { realizarTransferenciaBD } from '../services/transferencias';
 
 export default function TransferForm({ saldoActual }) {
   const { usuario: usuarioActual } = useContext(AuthContext);
@@ -13,47 +14,27 @@ export default function TransferForm({ saldoActual }) {
   const handleSubmit = async (evento) => {
     evento.preventDefault();
     setEstado({ tipo: '', texto: '' });
-    const montoNum = Number(monto);
-
-    if (montoNum <= 0) return setEstado({ tipo: 'error', texto: 'El monto debe ser mayor a $0.' });
-    if (montoNum > saldoActual) return setEstado({ tipo: 'error', texto: 'Saldo insuficiente.' });
-    if (emailDestino === usuarioActual.email) return setEstado({ tipo: 'error', texto: 'No puedes transferir a tu cuenta.' });
+    
+    // 1. Usar lógica pura (testeada en Fase 2)
+    const validacion = validarTransferencia(monto, saldoActual, emailDestino, usuarioActual.email);
+    
+    if (!validacion.valido) {
+      return setEstado({ tipo: 'error', texto: validacion.error });
+    }
 
     setProcesando(true); 
+    const montoNum = Number(monto);
 
     try {
-      const usersRef = collection(db, "users");
-      const consulta = query(usersRef, where("email", "==", emailDestino));
-      const resultados = await getDocs(consulta);
-
-      if (resultados.empty) {
-        setProcesando(false);
-        return setEstado({ tipo: 'error', texto: 'Usuario no encontrado en XBank.' });
-      }
-
-      const destinatarioDoc = resultados.docs[0];
-      const datosDestinatario = destinatarioDoc.data();
-      const emisorRef = doc(db, "users", usuarioActual.uid);
-      const receptorRef = doc(db, "users", destinatarioDoc.id);
-
-      await updateDoc(emisorRef, { saldo: saldoActual - montoNum });
-      await updateDoc(receptorRef, { saldo: datosDestinatario.saldo + montoNum });
-
-      await addDoc(collection(db, "movimientos"), {
-        emisorUid: usuarioActual.uid,
-        emisorEmail: usuarioActual.email,
-        receptorUid: destinatarioDoc.id,
-        receptorEmail: emailDestino,
-        monto: montoNum,
-        fecha: new Date().toISOString(),
-        tipo: 'transferencia'
-      });
+      // 2. Usar servicio externo (Aislado para RT5)
+      await realizarTransferenciaBD(montoNum, saldoActual, emailDestino, usuarioActual);
 
       setEstado({ tipo: 'exito', texto: `¡$${montoNum.toLocaleString('es-CL')} transferidos!` });
       setEmailDestino('');
       setMonto('');
     } catch (error) {
-      setEstado({ tipo: 'error', texto: 'Error en el servidor.' });
+      // Si el servicio lanza un error (ej. Usuario no encontrado), lo atrapamos aquí
+      setEstado({ tipo: 'error', texto: error.message || 'Error en el servidor.' });
     } finally {
       setProcesando(false);
     }
