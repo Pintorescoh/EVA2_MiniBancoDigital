@@ -7,6 +7,12 @@ import TransferForm from './TransferForm';
 import { AuthContext } from '../context/AuthContext';
 import { realizarTransferenciaBD } from '../services/transferencias';
 
+// NUEVO: Mockeamos la configuración para que GitHub no pida API Keys
+vi.mock('../firebase/config', () => ({
+  db: {},
+  auth: {}
+}));
+
 // RT5: Mockeamos la capa de servicios. 
 // Esto evita que el test intente conectarse a Firebase real.
 vi.mock('../services/transferencias', () => ({
