@@ -194,7 +194,7 @@ Se utilizó IA para estructurar los observadores en tiempo real (`onSnapshot`) d
 * **Corrección aplicada:** Se identificó que faltaba el puente de conexión y se solucionó agregando la instrucción explícita de `import './index.css';` en el punto de entrada principal (`main.jsx`), restaurando la interfaz de forma definitiva.
 
 # 🏦 XBank - Mini Banco Digital (Fase de Testing)
-[![Tests de XBank](https://github.com/Pintorescoh/minibancodigital/actions/workflows/test.yml/badge.svg)](https://github.com/Pintorescoh/minibancodigital/actions)
+[![Tests de XBank](https://github.com/Pintorescoh/EVA2_MiniBancoDigital/actions/workflows/test.yml/badge.svg)](https://github.com/Pintorescoh/EVA2_MiniBancoDigital/actions)
 
 Este repositorio contiene la evaluación de Testing y Refactorización del proyecto XBank, un mini banco digital desarrollado con React y Vite.
 
