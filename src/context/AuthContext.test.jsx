@@ -32,7 +32,6 @@ describe('Contexto: AuthContext', () => {
   });
 
   it('inicializa con el usuario en null y estado de carga', () => {
-    // Simulamos que onAuthStateChanged no dispara ninguna acción todavía
     onAuthStateChanged.mockImplementation(() => {
       return () => {}; // Función de limpieza (unsubscribe)
     });
@@ -43,13 +42,11 @@ describe('Contexto: AuthContext', () => {
       </AuthProvider>
     );
 
-    // Verificamos el estado inicial definido en el reducer
     expect(screen.getByTestId('estado-cargando')).toHaveTextContent('Cargando');
     expect(screen.getByTestId('estado-usuario')).toHaveTextContent('Nadie');
   });
 
   it('ejecuta la acción LOGIN cuando Firebase detecta una sesión activa', () => {
-    // Simulamos que Firebase detecta un usuario y ejecuta el callback de inmediato
     onAuthStateChanged.mockImplementation((auth, callback) => {
       callback({ email: 'usuario@banco.cl', uid: '123' });
       return () => {}; 
@@ -61,13 +58,11 @@ describe('Contexto: AuthContext', () => {
       </AuthProvider>
     );
 
-    // El reducer debió cambiar "cargando" a false y guardar el email
     expect(screen.getByTestId('estado-cargando')).toHaveTextContent('Listo');
     expect(screen.getByTestId('estado-usuario')).toHaveTextContent('usuario@banco.cl');
   });
 
   it('ejecuta la acción LOGOUT cuando Firebase detecta que no hay sesión', () => {
-    // Simulamos que Firebase ejecuta el callback con valor nulo (sin usuario)
     onAuthStateChanged.mockImplementation((auth, callback) => {
       callback(null);
       return () => {};
@@ -79,8 +74,29 @@ describe('Contexto: AuthContext', () => {
       </AuthProvider>
     );
 
-    // El reducer debió cambiar "cargando" a false y dejar el usuario vacío
     expect(screen.getByTestId('estado-cargando')).toHaveTextContent('Listo');
     expect(screen.getByTestId('estado-usuario')).toHaveTextContent('Nadie');
+  });
+
+  // BONUS: Este bloque ahora está correctamente posicionado fuera del anterior
+  it('limpia la suscripción (unsubscribe) al desmontar el componente (Bonus)', () => {
+    // 1. Creamos una función espía falsa
+    const mockUnsubscribe = vi.fn();
+    
+    // 2. Le decimos al mock de Firebase que DEVUELVA esa función espía
+    onAuthStateChanged.mockReturnValue(mockUnsubscribe);
+
+    // 3. Renderizamos el contexto
+    const { unmount } = render(
+      <AuthProvider>
+        <ComponentePrueba />
+      </AuthProvider>
+    );
+
+    // 4. Act: Forzamos que el componente se destruya (desmontar)
+    unmount();
+
+    // 5. Assert: Verificamos que React llamó a nuestra función de limpieza
+    expect(mockUnsubscribe).toHaveBeenCalledTimes(1);
   });
 });

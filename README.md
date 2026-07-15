@@ -192,3 +192,34 @@ Se utilizó IA para estructurar los observadores en tiempo real (`onSnapshot`) d
 * **Fallo inicial de la IA:** Se propusieron las variables globales de CSS (`:root` y `[data-theme="light"]`) y la lógica del botón en `App.jsx`, pero se omitió el paso crítico de asegurar la importación del archivo de estilos.
 * **Detección:** Al activar el botón de cambio de tema, la interfaz colapsó visualmente, mostrando una pantalla completamente blanca y perdiendo el renderizado de la tarjeta.
 * **Corrección aplicada:** Se identificó que faltaba el puente de conexión y se solucionó agregando la instrucción explícita de `import './index.css';` en el punto de entrada principal (`main.jsx`), restaurando la interfaz de forma definitiva.
+
+# 🏦 XBank - Mini Banco Digital (Fase de Testing)
+[![Tests de XBank](https://github.com/Pintorescoh/minibancodigital/actions/workflows/test.yml/badge.svg)](https://github.com/Pintorescoh/minibancodigital/actions)
+
+Este repositorio contiene la evaluación de Testing y Refactorización del proyecto XBank, un mini banco digital desarrollado con React y Vite.
+
+## 🛠️ Decisiones Técnicas y Refactorización
+
+Para cumplir con las buenas prácticas de testing (AAA) y aislar las responsabilidades, se realizaron las siguientes modificaciones arquitectónicas:
+
+1. **Extracción de Lógica Pura (utils):** Se separó la lógica de validación de transferencias (`validaciones.js`) fuera de los componentes visuales para permitir pruebas unitarias rápidas y predecibles sin depender del renderizado de React.
+2. **Aislamiento de la Base de Datos (services):** Se extrajo toda la interacción con Firebase Firestore (funciones `getDocs`, `updateDoc`, `addDoc`) hacia un archivo independiente (`transferencias.js`). Esto permitió que el componente UI ignorara la implementación de la base de datos.
+3. **Mocking de Servicios:** Durante las pruebas del componente `TransferForm`, se utilizó `vi.mock` para secuestrar las llamadas a Firebase. Esto garantiza que la suite de pruebas no consuma red, no altere datos reales y no arroje errores de conexión.
+
+## 🧪 Tecnologías de Pruebas Utilizadas
+
+* **Vitest:** Motor principal de pruebas (reemplazo moderno de Jest).
+* **React Testing Library:** Para pruebas de componentes centradas en el comportamiento del usuario y no en los detalles de implementación (render, screen).
+* **user-event:** Para simular interacciones reales de teclado y ratón.
+* **Coverage-v8:** Para la generación de reportes de cobertura de código.
+
+## 📊 Reporte de Cobertura
+
+El proyecto superó ampliamente la meta del 70%, logrando una cobertura global del **98.14%**.
+
+## 🤖 Declaración de uso de Inteligencia Artificial
+
+Para el desarrollo de esta fase de testing, utilicé la asistencia de Gemini (Google). La IA fue empleada principalmente como un experto técnico para:
+* Guiar la configuración inicial del entorno de Vitest y resolver bugs de resolución de rutas en Windows.
+* Diseñar la estrategia de refactorización para extraer la lógica pura y los servicios de Firebase.
+* Explicar y aplicar patrones avanzados de testing como `vi.mock` para aislar contextos (`AuthContext`) y servicios asíncronos.

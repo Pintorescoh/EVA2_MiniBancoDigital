@@ -1,0 +1,21 @@
+name: Tests de XBank
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Usar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    - name: Instalar dependencias
+      run: npm install
+    - name: Ejecutar Vitest
+      run: npm test
