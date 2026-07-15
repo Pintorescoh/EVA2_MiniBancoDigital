@@ -9,19 +9,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # Esta es la línea mágica que le dice a GitHub dónde está tu proyecto
-    defaults:
-      run:
-        working-directory: ./minibancodigital
-        
+    
     steps:
     - uses: actions/checkout@v4
+    
     - name: Usar Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22' # Actualizado para eliminar la advertencia de deprecación
+        
     - name: Instalar dependencias
       run: npm install
+      
     - name: Ejecutar Vitest
-      # En entornos CI, a veces es más seguro correr el run explícito
+      # Usamos npx para asegurar que corra exactamente una vez y no se quede esperando
       run: npx vitest run
