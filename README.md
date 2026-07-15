@@ -217,7 +217,8 @@ Para cumplir con las buenas prácticas de testing (AAA) y aislar las responsabil
 
 El proyecto superó ampliamente la meta del 70%, logrando una cobertura global del **97.08%** y cubriendo todos los componentes críticos exigidos.
 
-![Reporte de Cobertura Vitest](./docs/Coverage Report.png)
+<img width="1892" height="894" alt="Coverage Report" src="https://github.com/user-attachments/assets/b5889a45-bb8e-445a-a1bd-7d3ea9a4230e" />
+
 
 ## 🤖 Declaración de uso de Inteligencia Artificial
 
