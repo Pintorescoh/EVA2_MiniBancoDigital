@@ -226,3 +226,21 @@ Para el desarrollo de esta fase de testing, utilicé la asistencia de Gemini (Go
 * Guiar la configuración inicial del entorno de Vitest y resolver bugs de resolución de rutas en Windows.
 * Diseñar la estrategia de refactorización para extraer la lógica pura y los servicios de Firebase.
 * Explicar y aplicar patrones avanzados de testing como `vi.mock` para aislar contextos (`AuthContext`) y servicios asíncronos.
+
+Documentación de las veces que la IA sugirió código erróneo y cómo se solucionó:
+
+1. **El Test Anidado Prohibido (`AuthContext.test.jsx`):**
+   * **El error de la IA:** Sugirió pegar el bloque de prueba del *Bonus de Unsubscribe* justo antes de la última llave, lo que provocó que el test quedara anidado dentro de otro bloque `it`. Vitest arrojó un error de sintaxis.
+   * **La solución:** Se reestructuró el archivo completo asegurando que el bloque `it('limpia la suscripción...')` quedara al mismo nivel dentro del `describe`, respetando el alcance de las funciones.
+
+2. **La Alucinación del Directorio Fantasma (`test.yml`):**
+   * **El error de la IA:** En la configuración de GitHub Actions, la IA asumió que el proyecto de React estaba en una subcarpeta llamada `./minibancodigital` y configuró el `working-directory`. Esto hizo que el entorno CI de Ubuntu se estrellara en 24 segundos porque no encontraba la ruta.
+   * **La solución:** Al revisar los logs de las Actions, se eliminó la directiva `working-directory` ya que el `package.json` vivía directamente en la raíz del repositorio.
+
+3. **El Olvido de las Variables de Entorno (`TransferForm.test.jsx`):**
+   * **El error de la IA:** La prueba pasaba perfecto en local, pero fallaba en GitHub Actions con el error `auth/invalid-api-key`. La IA olvidó que el archivo `.env` estaba en el `.gitignore` y no se subía a la nube, por lo que Firebase intentaba inicializarse sin credenciales.
+   * **La solución:** Se agregó un `vi.mock('../firebase/config')` en el archivo de pruebas para "apagar" la inicialización real de Firebase y aislar completamente el componente durante el test en la nube.
+
+4. **El Spanglish en las Importaciones (`History.test.jsx`):**
+   * **El error de la IA:** Al redactar la prueba para el historial, la IA importó el componente como `import Historial from './Historial';`, asumiendo el nombre en español. Vite canceló la ejecución con un error de módulo no encontrado (`Failed to resolve import`).
+   * **La solución:** Se corrigió la ruta de importación para que apuntara al nombre real del archivo en inglés: `import Historial from './History';`.
