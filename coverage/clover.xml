@@ -1,9 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1784083570500" clover="3.2.0">
-  <project timestamp="1784083570500" name="All files">
-    <metrics statements="53" coveredstatements="52" conditionals="35" coveredconditionals="33" methods="10" coveredmethods="10" elements="98" coveredelements="95" complexity="0" loc="53" ncloc="53" packages="4" files="4" classes="4"/>
+<coverage generated="1784088729146" clover="3.2.0">
+  <project timestamp="1784088729147" name="All files">
+    <metrics statements="103" coveredstatements="100" conditionals="76" coveredconditionals="70" methods="26" coveredmethods="24" elements="205" coveredelements="194" complexity="0" loc="103" ncloc="103" packages="3" files="5" classes="5"/>
     <package name="components">
-      <metrics statements="23" coveredstatements="23" conditionals="18" coveredconditionals="17" methods="4" coveredmethods="4"/>
+      <metrics statements="77" coveredstatements="75" conditionals="59" coveredconditionals="54" methods="20" coveredmethods="18"/>
+      <file name="History.jsx" path="C:\Users\pinto\INACAP\2026\Tercer_semestre_2026\FRONT_END\EVA2\EVA2_MiniBancoDigital\minibancodigital\src\components\History.jsx">
+        <metrics statements="33" coveredstatements="31" conditionals="31" coveredconditionals="27" methods="11" coveredmethods="9"/>
+        <line num="7" count="11" type="stmt"/>
+        <line num="8" count="11" type="stmt"/>
+        <line num="9" count="11" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="13" count="11" type="stmt"/>
+        <line num="15" count="11" type="stmt"/>
+        <line num="16" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="27" count="4" type="stmt"/>
+        <line num="30" count="11" type="stmt"/>
+        <line num="31" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="32" count="12" type="stmt"/>
+        <line num="33" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="12" type="stmt"/>
+        <line num="36" count="12" type="stmt"/>
+        <line num="37" count="12" type="stmt"/>
+        <line num="38" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="40" count="12" type="cond" truecount="3" falsecount="0"/>
+        <line num="43" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="7" type="stmt"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="67" count="8" type="stmt"/>
+        <line num="68" count="8" type="cond" truecount="3" falsecount="1"/>
+        <line num="70" count="8" type="stmt"/>
+      </file>
+      <file name="Login.jsx" path="C:\Users\pinto\INACAP\2026\Tercer_semestre_2026\FRONT_END\EVA2\EVA2_MiniBancoDigital\minibancodigital\src\components\Login.jsx">
+        <metrics statements="21" coveredstatements="21" conditionals="10" coveredconditionals="10" methods="5" coveredmethods="5"/>
+        <line num="9" count="72" type="stmt"/>
+        <line num="10" count="72" type="stmt"/>
+        <line num="13" count="72" type="stmt"/>
+        <line num="14" count="72" type="stmt"/>
+        <line num="16" count="72" type="stmt"/>
+        <line num="17" count="72" type="stmt"/>
+        <line num="20" count="72" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="25" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="51" count="72" type="stmt"/>
+        <line num="92" count="3" type="stmt"/>
+      </file>
       <file name="TransferForm.jsx" path="C:\Users\pinto\INACAP\2026\Tercer_semestre_2026\FRONT_END\EVA2\EVA2_MiniBancoDigital\minibancodigital\src\components\TransferForm.jsx">
         <metrics statements="23" coveredstatements="23" conditionals="18" coveredconditionals="17" methods="4" coveredmethods="4"/>
         <line num="8" count="69" type="stmt"/>
@@ -35,31 +95,21 @@
       <metrics statements="15" coveredstatements="14" conditionals="5" coveredconditionals="4" methods="5" coveredmethods="5"/>
       <file name="AuthContext.jsx" path="C:\Users\pinto\INACAP\2026\Tercer_semestre_2026\FRONT_END\EVA2\EVA2_MiniBancoDigital\minibancodigital\src\context\AuthContext.jsx">
         <metrics statements="15" coveredstatements="14" conditionals="5" coveredconditionals="4" methods="5" coveredmethods="5"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
         <line num="11" count="2" type="cond" truecount="2" falsecount="1"/>
         <line num="13" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="24" count="5" type="stmt"/>
-        <line num="30" count="5" type="stmt"/>
-        <line num="31" count="3" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="24" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
         <line num="32" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="33" count="1" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
-        <line num="42" count="5" type="stmt"/>
-      </file>
-    </package>
-    <package name="firebase">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="config.js" path="C:\Users\pinto\INACAP\2026\Tercer_semestre_2026\FRONT_END\EVA2\EVA2_MiniBancoDigital\minibancodigital\src\firebase\config.js">
-        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="39" count="4" type="stmt"/>
+        <line num="42" count="6" type="stmt"/>
       </file>
     </package>
     <package name="utils">

@@ -54,8 +54,10 @@ export default function Login() {
       
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '10px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
+          {/* 1. Agregamos htmlFor="email" */}
+          <label htmlFor="email" style={{ display: 'block', marginBottom: '5px' }}>Email:</label>
           <input 
+            id="email" // <-- 2. Agregamos id="email"
             type="email" 
             value={email} 
             onChange={handleEmailChange} 
@@ -65,8 +67,10 @@ export default function Login() {
         </div>
         
         <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px' }}>Contraseña:</label>
+          {/* 3. Agregamos htmlFor="password" */}
+          <label htmlFor="password" style={{ display: 'block', marginBottom: '5px' }}>Contraseña:</label>
           <input 
+            id="password" // <-- 4. Agregamos id="password"
             type="password" 
             value={password} 
             onChange={handlePasswordChange} 
