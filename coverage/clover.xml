@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1784040276852" clover="3.2.0">
-  <project timestamp="1784040276852" name="All files">
-    <metrics statements="53" coveredstatements="41" conditionals="35" coveredconditionals="29" methods="10" coveredmethods="5" elements="98" coveredelements="75" complexity="0" loc="53" ncloc="53" packages="4" files="4" classes="4"/>
+<coverage generated="1784083570500" clover="3.2.0">
+  <project timestamp="1784083570500" name="All files">
+    <metrics statements="53" coveredstatements="52" conditionals="35" coveredconditionals="33" methods="10" coveredmethods="10" elements="98" coveredelements="95" complexity="0" loc="53" ncloc="53" packages="4" files="4" classes="4"/>
     <package name="components">
       <metrics statements="23" coveredstatements="23" conditionals="18" coveredconditionals="17" methods="4" coveredmethods="4"/>
       <file name="TransferForm.jsx" path="C:\Users\pinto\INACAP\2026\Tercer_semestre_2026\FRONT_END\EVA2\EVA2_MiniBancoDigital\minibancodigital\src\components\TransferForm.jsx">
@@ -32,24 +32,24 @@
       </file>
     </package>
     <package name="context">
-      <metrics statements="15" coveredstatements="3" conditionals="5" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <metrics statements="15" coveredstatements="14" conditionals="5" coveredconditionals="4" methods="5" coveredmethods="5"/>
       <file name="AuthContext.jsx" path="C:\Users\pinto\INACAP\2026\Tercer_semestre_2026\FRONT_END\EVA2\EVA2_MiniBancoDigital\minibancodigital\src\context\AuthContext.jsx">
-        <metrics statements="15" coveredstatements="3" conditionals="5" coveredconditionals="0" methods="5" coveredmethods="0"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
+        <metrics statements="15" coveredstatements="14" conditionals="5" coveredconditionals="4" methods="5" coveredmethods="5"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="cond" truecount="2" falsecount="1"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
       </file>
     </package>
     <package name="firebase">
